@@ -9,7 +9,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "./cmd/server.go",
+      "program": "./server/main.go",
       "console": "internalConsole"
     },
     {
@@ -17,7 +17,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "./cmd/client.go",
+      "program": "./client/main.go",
       "console": "internalConsole"
     },
     {
@@ -25,7 +25,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "./testing/logTest.go",
+      "program": "./logs/logTest.go",
       "console": "internalConsole"
     }
   ]
