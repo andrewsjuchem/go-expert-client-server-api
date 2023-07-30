@@ -1,2 +1,4 @@
 .docker/mysql
 logs
+outputs
+__debug_bin
