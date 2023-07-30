@@ -33,6 +33,16 @@ type CurrencyExchangeQuote struct {
 	} `json:"USDBRL"`
 }
 
+type CurrencyExchangeQuotePublic struct {
+	Bid string `json:"bid"`
+}
+
+func (q *CurrencyExchangeQuote) ToPublic() *CurrencyExchangeQuotePublic {
+	return &CurrencyExchangeQuotePublic{
+		Bid: q.USDBRL.Bid,
+	}
+}
+
 var Logger *zap.Logger
 var Sugar *zap.SugaredLogger
 
@@ -109,6 +119,7 @@ func main() {
 
 func CurrencyExchangeHandler(w http.ResponseWriter, r *http.Request) {
 	quote, err := GetCurrencyExchange()
+	quotePublic := quote.ToPublic()
 	if err != nil {
 		Sugar.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -116,7 +127,7 @@ func CurrencyExchangeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(quote)
+	json.NewEncoder(w).Encode(quotePublic)
 }
 
 func GetCurrencyExchange() (*CurrencyExchangeQuote, error) {

@@ -15,19 +15,7 @@ import (
 )
 
 type CurrencyExchangeQuote struct {
-	USDBRL struct {
-		Code       string `json:"code"`
-		Codein     string `json:"codein"`
-		Name       string `json:"name"`
-		High       string `json:"high"`
-		Low        string `json:"low"`
-		VarBid     string `json:"varBid"`
-		PctChange  string `json:"pctChange"`
-		Bid        string `json:"bid"`
-		Ask        string `json:"ask"`
-		Timestamp  string `json:"timestamp"`
-		CreateDate string `json:"create_date"`
-	} `json:"USDBRL"`
+	Bid string `json:"bid"`
 }
 
 var Logger *zap.Logger
@@ -121,7 +109,7 @@ func saveQuoteToFile(quote *CurrencyExchangeQuote) error {
 	}
 
 	// Write the quote to the file
-	err = os.WriteFile(filePath+"cotacao.txt", []byte("Dólar: "+quote.USDBRL.Bid), 0644)
+	err = os.WriteFile(filePath+"cotacao.txt", []byte("Dólar: "+quote.Bid), 0644)
 	if err != nil {
 		Sugar.Error(err)
 		return err
