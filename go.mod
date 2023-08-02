@@ -1,4 +1,4 @@
-module goapp
+module github.com/andrewsjuchem/go-expert-client-server-api
 
 go 1.20
 

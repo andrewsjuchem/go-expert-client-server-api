@@ -1,4 +1,4 @@
-.docker/mysql
+databases/sqlite3/*.db
 logs
 outputs
 __debug_bin
