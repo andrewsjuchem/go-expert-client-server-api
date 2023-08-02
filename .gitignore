@@ -1,4 +1,4 @@
 databases/sqlite3/*.db
-logs
+logs/*.log
 outputs
 __debug_bin
