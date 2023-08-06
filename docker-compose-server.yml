@@ -11,5 +11,10 @@ services:
     ports:
       - '5432:5432'
     environment:
-      - SQLITE_DATABASE=/data/mydatabase.db
+      - SQLITE_DATABASE=/root/db/currency_exchange.db
     restart: unless-stopped
+
+
+networks:
+  go-network:
+    driver: bridge      
