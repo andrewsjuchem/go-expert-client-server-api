@@ -1,20 +1,13 @@
 version: '3'
 
 services:
-  sqlite3:
-    container_name: sqlite3_container
-    image: nouchka/sqlite3:latest
-    stdin_open: true
-    tty: true
+  app:
+    container_name: go-server-api
+    build: 
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./databases/sqlite3:/root/db/
+      - ./databases/sqlite3:/app/databases/sqlite3
+      - ./outputs:/app/outputs
     ports:
-      - '5432:5432'
-    environment:
-      - SQLITE_DATABASE=/root/db/currency_exchange.db
-    restart: unless-stopped
-
-
-networks:
-  go-network:
-    driver: bridge      
+      - "8080:8080"
