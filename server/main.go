@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"time"
 
 	"github.com/andrewsjuchem/go-expert-client-server-api/utils"
@@ -107,21 +108,26 @@ func GetCurrencyExchange() (*CurrencyExchangeQuote, error) {
 }
 
 func insertQuote(quote *CurrencyExchangeQuote) error {
+	// NOTE: 10 seconds is not enough for inserting from a container. It seems to be enough if running locally.
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 	defer cancel()
 
-	// Specify the path and name of the database file
-	dbPath := "./../databases/sqlite3"
-
 	// Create the folder if it does not exist
-	err := os.MkdirAll(dbPath, os.ModePerm)
+	var databaseDirectory string
+	workingDirectory, _ := os.Getwd()
+	if os.Getenv("APP_ENV") == "docker" {
+		databaseDirectory = path.Join(workingDirectory, "./databases/sqlite3")
+	} else {
+		databaseDirectory = path.Join(workingDirectory, "./../databases/sqlite3")
+	}
+	err := os.MkdirAll(databaseDirectory, os.ModePerm)
 	if err != nil {
 		utils.Sugar.Error(err)
 		return err
 	}
 
 	// Open the database file
-	db, err := sql.Open("sqlite3", dbPath+"/currency_exchange.db")
+	db, err := sql.Open("sqlite3", databaseDirectory+"/currency_exchange.db")
 	if err != nil {
 		utils.Sugar.Error(err)
 		return err
@@ -129,7 +135,7 @@ func insertQuote(quote *CurrencyExchangeQuote) error {
 	defer db.Close()
 
 	// Create table if not exist
-	_, err = db.ExecContext(ctx, "CREATE TABLE IF NOT EXISTS quote(id INTEGER PRIMARY KEY, code TEXT NOT NULL, codein TEXT NOT NULL, exchange_rate NUMERIC NOT NULL, create_date TEXT NOT NULL)", nil)
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS quote(id INTEGER PRIMARY KEY, code TEXT NOT NULL, codein TEXT NOT NULL, exchange_rate NUMERIC NOT NULL, create_date TEXT NOT NULL)", nil)
 	if err != nil {
 		utils.Sugar.Error(err)
 		return err

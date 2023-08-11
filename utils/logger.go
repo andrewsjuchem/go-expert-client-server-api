@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -22,9 +23,15 @@ func InitializeLogger() {
 	consoleEncoder := zapcore.NewConsoleEncoder(config)
 
 	// Create the log folder if it does not exist
-	logPath := "./../logs/"
-	logFileName := fmt.Sprintf(logPath+"log_%d.log", os.Getpid())
-	err := os.MkdirAll(logPath, os.ModePerm)
+	var logDirectory string
+	workingDirectory, _ := os.Getwd()
+	if os.Getenv("APP_ENV") == "docker" {
+		logDirectory = path.Join(workingDirectory, "./logs")
+	} else {
+		logDirectory = path.Join(workingDirectory, "./../logs")
+	}
+	logFileName := fmt.Sprintf(logDirectory+"/log_%d.log", os.Getpid())
+	err := os.MkdirAll(logDirectory, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}

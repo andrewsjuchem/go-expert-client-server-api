@@ -1,26 +1,25 @@
-# Setting Up
-
-```
-docker-compose up -d --build
-```
-
 # Checking Database
 
 ```
-docker-compose exec sqlite3 bash
 sqlite3 currency_exchange.db
 select * from quote;
 ```
 
-# Running Server
+# Running Server (Docker)
 
 ```
-docker-compose exec goapp bash --UPDATE LATER
-go mod tidy
-go run cmd/server.go
+docker-compose -f docker-compose-server.yml up -d --build
+or
+docker-compose -f docker-compose-server.yml up
 ```
 
-# Running Client
+# Stopping Server (Docker)
+
+```
+docker-compose -f docker-compose-server.yml down
+```
+
+# Running Client (Docker)
 
 ```
 docker-compose exec goapp bash --UPDATE LATER

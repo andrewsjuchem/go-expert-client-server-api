@@ -1,6 +1,7 @@
 # First stage: build the application
 FROM golang:1.20.4 AS builder
 WORKDIR /app
+ENV APP_ENV=docker
 COPY . .
 RUN go mod download && go mod verify
 RUN CGO_ENABLED=1 go build -o server-app -ldflags="-w -s" server/main.go
