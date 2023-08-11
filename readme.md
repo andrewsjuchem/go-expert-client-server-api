@@ -19,6 +19,12 @@ docker-compose -f docker-compose-server.yml up
 docker-compose -f docker-compose-server.yml down
 ```
 
+# Calling the Server's Endpoint
+
+```
+curl -X GET http://localhost:8080/cotacao
+```
+
 # Running Client (Docker)
 
 ```
