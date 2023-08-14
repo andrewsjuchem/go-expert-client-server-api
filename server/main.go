@@ -41,7 +41,7 @@ func (q *CurrencyExchangeQuote) ToPublic() *CurrencyExchangeQuotePublic {
 }
 
 func init() {
-	utils.InitializeLogger()
+	utils.InitializeLogger("server")
 }
 
 func main() {

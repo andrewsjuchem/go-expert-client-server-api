@@ -1,14 +1,17 @@
 version: '3'
 
 services:
-  app:
+  app-server:
     container_name: go-server-api
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.server
     volumes:
       - ./databases/sqlite3:/app/databases/sqlite3
       - ./logs:/app/logs
-      - ./outputs:/app/outputs
     ports:
       - "8080:8080"
+
+networks:
+  go-network:
+    external: true

@@ -1,0 +1,8 @@
+# A container is not really needed here but just for the sake of consistency we got one for the client too
+FROM golang:1.20.4 AS builder
+WORKDIR /app
+ENV APP_ENV=docker
+COPY . .
+RUN go mod download && go mod verify
+RUN CGO_ENABLED=1 go build -o client-app -ldflags="-w -s" client/main.go
+CMD [ "/app/client-app" ]

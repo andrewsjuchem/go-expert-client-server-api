@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"time"
 
 	"github.com/andrewsjuchem/go-expert-client-server-api/utils"
@@ -16,7 +17,7 @@ type CurrencyExchangeQuote struct {
 }
 
 func init() {
-	utils.InitializeLogger()
+	utils.InitializeLogger("client")
 }
 
 func main() {
@@ -34,7 +35,13 @@ func GetCurrencyExchange() (*CurrencyExchangeQuote, error) {
 	defer cancel()
 
 	// Prepare request
-	req, err := http.NewRequestWithContext(ctx, "GET", "http://localhost:8080/cotacao", nil)
+	var endpointUrl string
+	if os.Getenv("APP_ENV") == "docker" {
+		endpointUrl = "http://go-server-api:8080/cotacao"
+	} else {
+		endpointUrl = "http://localhost:8080/cotacao"
+	}
+	req, err := http.NewRequestWithContext(ctx, "GET", endpointUrl, nil)
 	if err != nil {
 		utils.Sugar.Error(err)
 		return nil, err
@@ -68,15 +75,21 @@ func GetCurrencyExchange() (*CurrencyExchangeQuote, error) {
 
 func saveQuoteToFile(quote *CurrencyExchangeQuote) error {
 	// Create the log folder if it does not exist
-	filePath := "./../outputs/"
-	err := os.MkdirAll(filePath, os.ModePerm)
+	var fileDirectory string
+	workingDirectory, _ := os.Getwd()
+	if os.Getenv("APP_ENV") == "docker" {
+		fileDirectory = path.Join(workingDirectory, "./outputs")
+	} else {
+		fileDirectory = path.Join(workingDirectory, "./../outputs/")
+	}
+	err := os.MkdirAll(fileDirectory, os.ModePerm)
 	if err != nil {
 		utils.Sugar.Error(err)
 		return err
 	}
 
 	// Write the quote to the file
-	err = os.WriteFile(filePath+"cotacao.txt", []byte("Dólar: "+quote.Bid), 0644)
+	err = os.WriteFile(fileDirectory+"/cotacao.txt", []byte("Dólar: "+quote.Bid), 0644)
 	if err != nil {
 		utils.Sugar.Error(err)
 		return err

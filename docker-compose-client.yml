@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  app-client:
+    container_name: go-client-api
+    build: 
+      context: .
+      dockerfile: Dockerfile.client
+    volumes:
+      - ./logs:/app/logs
+      - ./outputs:/app/outputs
+
+networks:
+  go-network:
+    driver: bridge

@@ -13,7 +13,7 @@ import (
 var Logger *zap.Logger
 var Sugar *zap.SugaredLogger
 
-func InitializeLogger() {
+func InitializeLogger(processName string) {
 	// Create a logger configuration
 	config := zap.NewProductionEncoderConfig()
 	config.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -30,7 +30,12 @@ func InitializeLogger() {
 	} else {
 		logDirectory = path.Join(workingDirectory, "./../logs")
 	}
-	logFileName := fmt.Sprintf(logDirectory+"/log_%d.log", os.Getpid())
+	var logFileName string
+	if len(processName) > 0 {
+		logFileName = fmt.Sprintf(logDirectory+"/log_%s_%d.log", processName, os.Getpid())
+	} else {
+		logFileName = fmt.Sprintf(logDirectory+"/log_%d.log", os.Getpid())
+	}
 	err := os.MkdirAll(logDirectory, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)

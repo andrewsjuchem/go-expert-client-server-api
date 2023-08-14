@@ -28,7 +28,7 @@ curl -X GET http://localhost:8080/cotacao
 # Running Client (Docker)
 
 ```
-docker-compose exec goapp bash --UPDATE LATER
-go mod tidy
-go run cmd/client.go
+docker-compose -f docker-compose-client.yml up -d --build
+or
+docker-compose -f docker-compose-client.yml up
 ```
