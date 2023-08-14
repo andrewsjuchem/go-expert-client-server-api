@@ -13,6 +13,12 @@ or
 docker-compose -f docker-compose-server.yml up
 ```
 
+# Running Server (Local)
+
+```
+go run ./server/main.go
+```
+
 # Stopping Server (Docker)
 
 ```
@@ -31,4 +37,10 @@ curl -X GET http://localhost:8080/cotacao
 docker-compose -f docker-compose-client.yml up -d --build
 or
 docker-compose -f docker-compose-client.yml up
+```
+
+# Running Client (Local)
+
+```
+go run ./client/main.go
 ```
