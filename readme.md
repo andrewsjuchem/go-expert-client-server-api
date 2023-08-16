@@ -1,4 +1,4 @@
-# Observações
+**Observações**
 
 - Embora existam arquivos de Docker neste projeto, não é necessário utilizar o Docker para executar o programa. Basta executar os comandos listados abaixo.
 - O banco de dados SQLite será criado automaticamente em ambiante local.
