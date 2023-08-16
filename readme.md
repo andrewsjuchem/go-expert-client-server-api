@@ -1,45 +1,22 @@
-# Checking Database
+# Observações
 
-```
-sqlite3 currency_exchange.db
-select * from quote;
-```
+- Embora existam arquivos de Docker neste projeto, não é necessário utilizar o Docker para executar o programa. Basta executar os comandos listados abaixo.
+- O banco de dados SQLite será criado automaticamente em ambiante local.
 
-# Running Server (Docker)
 
-```
-docker-compose -f docker-compose-server.yml up -d --build
-or
-docker-compose -f docker-compose-server.yml up
-```
-
-# Running Server (Local)
+**Executar Servidor**
 
 ```
 go run ./server/main.go
 ```
 
-# Stopping Server (Docker)
-
-```
-docker-compose -f docker-compose-server.yml down
-```
-
-# Calling the Server's Endpoint
+**Chamar Endpoint**
 
 ```
 curl -X GET http://localhost:8080/cotacao
 ```
 
-# Running Client (Docker)
-
-```
-docker-compose -f docker-compose-client.yml up -d --build
-or
-docker-compose -f docker-compose-client.yml up
-```
-
-# Running Client (Local)
+**Executar Cliente**
 
 ```
 go run ./client/main.go
