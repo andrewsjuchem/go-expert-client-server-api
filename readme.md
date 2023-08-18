@@ -17,8 +17,10 @@ curl: (52) Empty reply from server
 C:\Users\andrewsjuchem>curl -X GET http://localhost:8080/cotacao
 {"bid":"4.957"}
 ```
+- Os logs podem ser encontrados na pasta "logs".
 - O biblioteca do Go SQLite precisa que a opção CGO esteja ativada ("go-sqlite3 requires cgo to work"). Nesse caso, certifique-se que a variável CGO_ENABLED está preenchida com "1" na hora de executar o servidor.
 - Quando o CGO está ativado, é necessário ter um compilador C instalado no ambiente. Caso você não tenha, os comandos abaixos mostram como instalar.
+
 Para Linux, execute o comando abaixo:
 ```
 apt-get install build-essential
