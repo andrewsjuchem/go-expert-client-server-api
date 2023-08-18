@@ -7,7 +7,7 @@
 **Observações Importantes**
 
 - Importante lembrar que conforme o enunciado, o timeout máximo para conseguir persistir os dados no banco é de 10ms. No entanto, em algumas vezes, 10ms não é suficiente para persistir os dados no banco. Por exemplo, abaixo o endpoint precisou ser chamado 3 vezes até que a operação completou em menos de 10ms. Esse endpoint é chamado pelo cliente, então é possível que o cliente precise ser chamado mais de uma vez.
-````
+```
 C:\Users\andrewsjuchem>curl -X GET http://localhost:8080/cotacao
 curl: (52) Empty reply from server
 
