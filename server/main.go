@@ -113,13 +113,13 @@ func insertQuote(quote *CurrencyExchangeQuote) error {
 	defer cancel()
 
 	// Create the folder if it does not exist
-	var databaseDirectory string
 	workingDirectory, _ := os.Getwd()
-	if os.Getenv("APP_ENV") == "docker" {
-		databaseDirectory = path.Join(workingDirectory, "./databases/sqlite3")
-	} else {
-		databaseDirectory = path.Join(workingDirectory, "./../databases/sqlite3")
-	}
+	databaseDirectory := path.Join(workingDirectory, "./databases/sqlite3")
+	// if os.Getenv("APP_ENV") == "docker" {
+	// 	databaseDirectory = path.Join(workingDirectory, "./databases/sqlite3")
+	// } else {
+	// 	databaseDirectory = path.Join(workingDirectory, "./../databases/sqlite3")
+	// }
 	err := os.MkdirAll(databaseDirectory, os.ModePerm)
 	if err != nil {
 		utils.Sugar.Error(err)

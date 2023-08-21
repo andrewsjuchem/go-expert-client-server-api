@@ -75,13 +75,13 @@ func GetCurrencyExchange() (*CurrencyExchangeQuote, error) {
 
 func saveQuoteToFile(quote *CurrencyExchangeQuote) error {
 	// Create the log folder if it does not exist
-	var fileDirectory string
 	workingDirectory, _ := os.Getwd()
-	if os.Getenv("APP_ENV") == "docker" {
-		fileDirectory = path.Join(workingDirectory, "./outputs")
-	} else {
-		fileDirectory = path.Join(workingDirectory, "./../outputs/")
-	}
+	fileDirectory := path.Join(workingDirectory, "./outputs")
+	// if os.Getenv("APP_ENV") == "docker" {
+	// 	fileDirectory = path.Join(workingDirectory, "./outputs")
+	// } else {
+	// 	fileDirectory = path.Join(workingDirectory, "./../outputs/")
+	// }
 	err := os.MkdirAll(fileDirectory, os.ModePerm)
 	if err != nil {
 		utils.Sugar.Error(err)

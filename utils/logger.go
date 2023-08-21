@@ -23,13 +23,13 @@ func InitializeLogger(processName string) {
 	consoleEncoder := zapcore.NewConsoleEncoder(config)
 
 	// Create the log folder if it does not exist
-	var logDirectory string
 	workingDirectory, _ := os.Getwd()
-	if os.Getenv("APP_ENV") == "docker" {
-		logDirectory = path.Join(workingDirectory, "./logs")
-	} else {
-		logDirectory = path.Join(workingDirectory, "./../logs")
-	}
+	logDirectory := path.Join(workingDirectory, "./logs")
+	// if os.Getenv("APP_ENV") == "docker" {
+	// 	logDirectory = path.Join(workingDirectory, "./logs")
+	// } else {
+	// 	logDirectory = path.Join(workingDirectory, "./../logs")
+	// }
 	var logFileName string
 	if len(processName) > 0 {
 		logFileName = fmt.Sprintf(logDirectory+"/log_%s_%d.log", processName, os.Getpid())

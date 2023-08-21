@@ -9,6 +9,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
+      "cwd": "${workspaceFolder}",
       "program": "./server/main.go",
       "console": "internalConsole"
     },
@@ -17,6 +18,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
+      "cwd": "${workspaceFolder}",
       "program": "./client/main.go",
       "console": "internalConsole"
     },
@@ -25,6 +27,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
+      "cwd": "${workspaceFolder}",
       "program": "./logs/zapLoggerTest.go",
       "console": "internalConsole"
     }
